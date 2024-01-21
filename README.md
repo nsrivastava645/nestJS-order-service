@@ -15,6 +15,9 @@ $ npm install
 # development
 $ npm run start
 
+# start the rabbitmq message broker
+$ npm run start-consumer
+
 # watch mode
 $ npm run start:dev
 
