@@ -5,6 +5,9 @@ import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { QUEUES, SERVICES } from '../shared/const/messaging.constants';
+import * as dotenv from 'dotenv';
+const environment = process.env.NODE_ENV || 'development';
+dotenv.config({ path: `${environment}.env` });
 
 @Module({
   imports: [
@@ -14,7 +17,7 @@ import { QUEUES, SERVICES } from '../shared/const/messaging.constants';
         name: SERVICES.ORDER,
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://127.0.0.1'],
+          urls: [process.env.AMQP_CONN_STRING],
           queue: QUEUES.ORDER_CREATED_QUEUE,
           queueOptions: {
             durable: true,
